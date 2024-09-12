@@ -1,0 +1,52 @@
+.character-card{
+    color: black;
+    font-size: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 19%;
+    background: #535C91;
+    border-radius: 5px;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15);
+
+}
+.character-card img{
+    width: 100%;
+    margin-bottom: 10px; 
+}
+.character-card:hover,
+.active{
+box-shadow: 0rem 0rem 10px 8px rgb(58 59 69 / 25%);
+}
+.character-card p {
+    margin: 3px 0;
+}
+.character-card h2 {
+    margin: 2px 0;
+}
+.more{
+    color: blue;
+    text-align: right;
+}
+.delete {
+    color: rgb(194, 169, 23);
+    text-align: right;
+}
+.more:hover,
+.delete:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.show{
+    display: block;
+}
+.hidden{
+    display: none;
+}
+
+.Botonete {
+    background-color: #070f2b94; 
+    color: #535C91;
+    border-radius: 5px;       
+    font-size: 16px;         
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
