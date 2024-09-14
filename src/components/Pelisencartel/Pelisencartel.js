@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import "./Movie.css";
 import Pelicula from "../Pelicula/Pelicula";
+import Buscador from "../Buscador/Buscador";
 
-const apiKey= '42737f60c529bfe7e9586db8cb132a1c';
+const apiKey = '42737f60c529bfe7e9586db8cb132a1c';
 
 class Pelisencartel extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             peliculas: [],
@@ -16,45 +17,78 @@ class Pelisencartel extends Component {
 
     verMas() {
         this.setState((prevState) => ({
-          mostrar: prevState.mostrar + 5
+            mostrar: prevState.mostrar + 5
         }));
-      }
+    }
 
     verMenos() {
         this.setState((prevState) => ({
-          mostrar: prevState.mostrar- 5
+            mostrar: prevState.mostrar - 5
         }));
-      }
-      
-
-    componentDidMount (){
-        console.log("mount")
-        fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=${apiKey}`) 
-        .then((resp)=> resp.json()) 
-        .then((data)=> {
-            console.log("acaaaaa:", data)
-            this.setState({
-                peliculas: data.results
-            });
-        })
-        .catch((e)=> console.log (e))
     }
 
 
-    componentDidUpdate (){
+    componentDidMount() {
+        console.log("mount")
+        fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=${apiKey}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log("acaaaaa:", data)
+                this.setState({
+                    peliculas: data.results
+                });
+            })
+            .catch((e) => console.log(e))
+    }
+
+    // Form para buscar pelis en cartelera
+    buscarPeliculas = () => {
+        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=${this.state.busqueda}&language=en-US&page=1&api_key=${apiKey}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+                this.setState({
+                    peliculas: data.results ? data.results : []
+                })
+            })
+    }
+    // evitar el envio y que luego se ejecute el metodo de buscar las peliculas en cartelera 
+    evitarSubmit = (event) => {
+        event.preventDefault();
+        this.buscarPeliculas()
+    }
+    // metodo de "controlar cambios" 
+    controlarCambios = (event) => {
+        this.setState({
+            busqueda: event.target.value
+        })
+    }
+    componentDidUpdate() {
         console.log("update")
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log("unmount")
     }
 
-    render () {
-        const peliculasAMostrar = this.state.peliculas.slice(0, this.state.mostrar);
+    render() {
+        const peliculasAMostrar = this.state.peliculas
+            .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
+            .slice(0, this.state.mostrar);
+
         return (
             <React.Fragment>
                 <h1 className="Subtitulos">Peliculas en cartelera:</h1>
+                <Buscador
+                    evitarSubmit={this.evitarSubmit}
+                    controlarCambios={this.controlarCambios}
+                    buscarPeliculas={this.buscarPeliculas}
+                />
+                {this.state.peliculas.length === 0 ?
 
+                    (<h1> Cargando peliculas en cartelera ... </h1>)
+                : 
+                peliculasAMostrar.length > 0 ?
+                (<>
                 <div className="Tarjeta">
                     {peliculasAMostrar.map((elem) => (
                         <Pelicula
@@ -64,15 +98,20 @@ class Pelisencartel extends Component {
                             extra={elem.overview}
                         />
                     ))}
-            </div>
-            {this.state.mostrar < 20 ?
-                 <button className="Boton1" onClick={() => this.verMas()}>Ver mas</button> : ""
-                        }
-            {this.state.mostrar >= 10 ?
-                <button className="Boton2" onClick={() => this.verMenos()}>Ver Menos</button>: ""
-                        }
-          </React.Fragment>
-        
+                </div>
+                {this.state.mostrar < 20 ?
+                    <button className="Boton1" onClick={() => this.verMas()}> Ver mas </button> : ""
+                }
+                {this.state.mostrar >= 10 ?
+                    <button className="Boton2" onClick={() => this.verMenos()}> Ver Menos </button> : ""
+                }
+                </>)
+                :
+                <h1> No se ha encontrado ninguna película en cartelera  </h1>
+                }
+                
+            </React.Fragment>
+
         )
     }
 }

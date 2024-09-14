@@ -1,0 +1,16 @@
+.botonBuscar {
+    padding: 10px 16px;
+    font-size: 18px;
+    border-radius: 4px;
+    height: auto;
+    margin: 2px;
+    color: #8997c8;
+    background-color: #2c2b59;
+    border-color: #2c2b59;
+    width: 32%;
+    display: inline-block;
+    min-width: 100px; 
+    padding-left: 50px;
+    border-color: grey;
+
+}
