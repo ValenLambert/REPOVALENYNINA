@@ -78,45 +78,52 @@ class Pelispopu extends Component {
             .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
             .slice(0, this.state.mostrar);
 
-        return (
-            <React.Fragment>
-                <h1 className="Subtitulos">Peliculas populares:</h1>
-                <Buscador
-                    evitarSubmit={this.evitarSubmit}
-                    controlarCambios={this.controlarCambios}
-                    buscarPeliculas={this.buscarPeliculas}
-                />
-                {this.state.peliculas.length === 0 ?
-                    (<h1> Cargando películas ... </h1>)
-                    : 
-                    peliculasAMostrar.length > 0 ?
-                    (<>
-                    <div className="Tarjeta">
-                        {peliculasAMostrar.map((elem) => (
-                            <Pelicula
-                                key={elem.id}
-                                img={elem.poster_path}
-                                title={elem.title}
-                                id={elem.id}
-                                extra={elem.overview}
-                            />
-                        ))}
+            return (
+                <React.Fragment>
+                    <h1 className="Subtitulos">Peliculas populares:</h1>
+                                    <Buscador
+                                        evitarSubmit={this.evitarSubmit}
+                                        controlarCambios={this.controlarCambios}
+                                        buscarPeliculas={this.buscarPeliculas}
+                                    />
+                    {this.state.peliculas.length === 0 ? (
+                        <div className="loading-container">
+                        <h1>Cargando ...</h1>
+                        <img src="/img/loader.gif" alt="Cargando..." />
                     </div>
-                    {this.state.mostrar < 20 ?
-                        <button className="Boton1" onClick={() => this.verMas()}>Ver mas</button> : ""
-                    }
-                    {this.state.mostrar >= 10 ?
-                        <button className="Boton2" onClick={() => this.verMenos()}>Ver Menos</button> : ""
-                    }
-                </>)
-                :
-                <h1> No se ha encontrado ninguna pelicula popular  </h1>
-            }
-                
-
-            </React.Fragment>
-
-        )
+                    ) : (
+                        <>
+                            {peliculasAMostrar.length > 0 ? (
+                                <>
+                                    <div className="Tarjeta">
+                                        {peliculasAMostrar.map((elem) => (
+                                            <Pelicula
+                                                key={elem.id}
+                                                img={elem.poster_path}
+                                                title={elem.title}
+                                                id={elem.id}
+                                                extra={elem.overview}
+                                            />
+                                        ))}
+                                    </div>
+                                    {this.state.mostrar < 20 && (
+                                        <button className="Boton1" onClick={() => this.verMas()}>
+                                            Ver más
+                                        </button>
+                                    )}
+                                    {this.state.mostrar >= 10 && (
+                                        <button className="Boton2" onClick={() => this.verMenos()}>
+                                            Ver menos
+                                        </button>
+                                    )}
+                                </>
+                            ) : (
+                                <h1>No se ha encontrado ninguna película popular</h1>
+                            )}
+                        </>
+                    )}
+                </React.Fragment>
+            );
     }
 }
 

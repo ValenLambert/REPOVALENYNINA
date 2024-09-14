@@ -3,61 +3,71 @@ import "./Movie.css";
 import { Link } from "react-router-dom";
 import Pelicula from "../Pelicula/Pelicula";
 
-const apiKey= '42737f60c529bfe7e9586db8cb132a1c';
+const apiKey = '42737f60c529bfe7e9586db8cb132a1c';
 
 class Cartelera extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             peliculas: [],
             mostrar: 5,
         }
     }
-      
 
-    componentDidMount (){
+
+    componentDidMount() {
         console.log("mount")
-        fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=${apiKey}`) 
-        .then((resp)=> resp.json()) 
-        .then((data)=> {
-            console.log("acaaaaa:", data)
-            this.setState({
-                peliculas: data.results
-            });
-        })
-        .catch((e)=> console.log (e))
+        fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1&api_key=${apiKey}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log("acaaaaa:", data)
+                this.setState({
+                    peliculas: data.results
+                });
+            })
+            .catch((e) => console.log(e))
     }
 
 
-    componentDidUpdate (){
+    componentDidUpdate() {
         console.log("update")
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log("unmount")
     }
 
-    render () {
+    render() {
         const peliculasAMostrar = this.state.peliculas.slice(0, this.state.mostrar);
         return (
             <React.Fragment>
-                <h1 className="Subtitulos">Peliculas en cartelera:</h1>
+                {this.state.peliculas.length === 0 ?
+                    (<h1> </h1>)
+                    :
+                    (
+                        <>
 
-                <div className="Tarjeta">
-                    {peliculasAMostrar.map((elem) => (
-                        <Pelicula
-                            img={elem.poster_path}
-                            title={elem.title}
-                            id={elem.id}
-                            extra={elem.overview}
-                        />
-                    ))}
-            </div>
-                <Link to="/vertodascartelera">
-                <button className="Boton3">Ver mas</button>: 
-                </Link>
-          </React.Fragment>
-        
+                            <h1 className="Subtitulos">Peliculas en cartelera:</h1>
+
+                            <div className="Tarjeta">
+                                {peliculasAMostrar.map((elem) => (
+                                    <Pelicula
+                                        img={elem.poster_path}
+                                        title={elem.title}
+                                        id={elem.id}
+                                        extra={elem.overview}
+                                    />
+                                ))}
+                            </div>
+                            <Link to="/vertodascartelera">
+                                <button className="Boton3">Ver mas</button>:
+                            </Link>
+                        </>
+                    )
+                }
+
+            </React.Fragment>
+
         )
     }
 }
