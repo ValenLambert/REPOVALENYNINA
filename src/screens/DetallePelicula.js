@@ -8,7 +8,6 @@ class DetallePelicula extends Component {
         this.state = {
             pelicula: '',
             cargando: true,
-            agregada: false, // Estado para el botón de favoritos
         };
     }
 
@@ -27,14 +26,9 @@ class DetallePelicula extends Component {
             });
     }
 
-    favoritos = () => {
-        this.setState(prevState => ({
-            agregada: !prevState.agregada
-        }));
-    }
 
     render() {
-        const { pelicula, cargando, agregada } = this.state;
+        const { pelicula, cargando } = this.state;
 
         if (cargando) {
             return (
@@ -67,6 +61,7 @@ class DetallePelicula extends Component {
                         calificacion={pelicula.vote_average}
                         mostrarDescripcion={false}
                         esDetalle={true} 
+                        agregada={true}
                     />
                     <br></br> <br></br>
                 </div>
