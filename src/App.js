@@ -7,8 +7,7 @@ import Pelispopu from "./components/Pelispopu/Pelispopu"
 import Pelisencartel from "./components/Pelisencartel/Pelisencartel";
 import DetallePelicula from "./screens/DetallePelicula"
 import NotFound from './screens/NotFound'
-
-// import PelisFav from "./components/PelisFav/PelisFav" --> lo dejo listo para cuanod este el archivo de PelisFav
+import PelisFav from "./components/PelisFav/PelisFav";
 
 
 function App() {
@@ -17,7 +16,7 @@ function App() {
       <Nav />
       <Switch>
         <Route path="/" exact={true} component={Home} />
-        {/* <Route path="/favoritos" component={PelisFav} /> */}
+        <Route path="/favoritos" component={PelisFav} /> 
         <Route path="/vertodaspopu" component={Pelispopu} />
         <Route path="/vertodascartelera" component={Pelisencartel} />
         <Route path='/detalle/:id' component= {DetallePelicula}/>

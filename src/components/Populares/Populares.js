@@ -54,7 +54,7 @@ class Populares extends Component {
                 <div className="Tarjeta">
                     {peliculasAMostrar.map((elem) => (
                         <Pelicula
-                            key={elem.id} // Agregar un key para cada elemento mapeado
+                            key={elem.id} 
                             img={elem.poster_path}
                             title={elem.title}
                             id={elem.id}
@@ -65,7 +65,7 @@ class Populares extends Component {
                     ))}
                 </div>
                 <Link to="/vertodaspopu">
-                    <button className="Boton3">Ver más</button>
+                    <button className="Boton3">Ver todas</button>
                 </Link>
             </>
         )}

@@ -68,7 +68,7 @@ class Cartelera extends Component {
                                 ))}
                             </div>
                             <Link to="/vertodascartelera">
-                                <button className="Boton3">Ver mas</button>:
+                                <button className="Boton3">Ver todas</button>:
                             </Link>
                         </>
                     )
