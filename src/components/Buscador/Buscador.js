@@ -5,7 +5,7 @@ class Buscador extends Component {
         return(
             <>
             <form onSubmit={(event)=> this.props.evitarSubmit(event)}> 
-            <input type="text" placeholder= 'Buscar película ...' onChange={(event)=> this.props.controlarCambios(event)} value={this.props.busqueda} class="botonBuscar" />
+            <input type="text" placeholder= 'Filtrar película ...' onChange={(event)=> this.props.controlarCambios(event)} value={this.props.busqueda} class="botonBuscar" />
             </form>
             </>
         )

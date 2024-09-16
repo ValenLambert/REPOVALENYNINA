@@ -11,7 +11,8 @@ class Pelisencartel extends Component {
         this.state = {
             peliculas: [],
             mostrar: 10,
-            busqueda: ""
+            busqueda: "",
+            cargando: true,
         }
     }
 
@@ -35,10 +36,11 @@ class Pelisencartel extends Component {
             .then((data) => {
                 console.log("acaaaaa:", data)
                 this.setState({
-                    peliculas: data.results
+                    peliculas: data.results,
+                    cargando: false,
                 });
             })
-            .catch((e) => console.log(e))
+            .catch((e) => console.log(e));
     }
 
     // Form para buscar pelis en cartelera
@@ -74,22 +76,22 @@ class Pelisencartel extends Component {
         const peliculasAMostrar = this.state.peliculas
             .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
             .slice(0, this.state.mostrar);
-
+        const cargando = this.state.cargando
         return (
             <React.Fragment>
+                {cargando ? (<div className="loading-container">
+                        <h1>Cargando ...</h1>
+                        <img src="/img/loader.gif" alt="Cargando..." />
+                    </div> )
+                :
+            ( <>
                 <h1 className="Subtitulos">Peliculas en cartelera:</h1>
                                 <Buscador
                                     evitarSubmit={this.evitarSubmit}
                                     controlarCambios={this.controlarCambios}
                                     buscarPeliculas={this.buscarPeliculas}
                                 />
-                {this.state.peliculas.length === 0 ? (
-                    <div className="loading-container">
-                        <h1>Cargando ...</h1>
-                        <img src="/img/loader.gif" alt="Cargando..." />
-                    </div>
-                ) : (
-                    <>
+                                 
                         {peliculasAMostrar.length > 0 ? (
                             <>
                             
@@ -101,6 +103,9 @@ class Pelisencartel extends Component {
                                             title={elem.title}
                                             id={elem.id}
                                             extra={elem.overview}
+                                            mostrarDetalle= {true}
+                                            mostrarDescripcion= {true}
+
                                         />
                                     ))}
                                 </div>

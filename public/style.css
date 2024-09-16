@@ -55,3 +55,45 @@ body {
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         transform: translate(720%, -50%);
     }
+
+.pelicula{
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    background-color: #535C91;
+    border-radius: 10px;
+}
+
+.detalle-titulo {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.detalle-sinopsis {
+    font-size: 32px;
+    line-height: 1.6;
+    color:  #333;
+}
+
+.detalles {
+    font-size: 18px;
+    color: #150743;
+    margin-top: 10px;
+}
+
+.imagenDetalle{
+    width: 258px;
+    height: 368px;
+    border-radius: 4px;
+    border-color: #535C91;
+}
+
+.nombrePelicula {
+    font-size: 38px;
+    color: #0d0b3a;
+    margin-top: 4px;
+    text-decoration: dotted;
+
+}

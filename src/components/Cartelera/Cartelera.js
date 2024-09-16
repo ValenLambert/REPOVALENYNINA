@@ -11,6 +11,7 @@ class Cartelera extends Component {
         this.state = {
             peliculas: [],
             mostrar: 5,
+            cargando: true
         }
     }
 
@@ -22,10 +23,11 @@ class Cartelera extends Component {
             .then((data) => {
                 console.log("acaaaaa:", data)
                 this.setState({
-                    peliculas: data.results
+                    peliculas: data.results,
+                    cargando: false
                 });
             })
-            .catch((e) => console.log(e))
+            .catch((e) => console.log(e));
     }
 
 
@@ -39,10 +41,14 @@ class Cartelera extends Component {
 
     render() {
         const peliculasAMostrar = this.state.peliculas.slice(0, this.state.mostrar);
+        const cargando = this.state.cargando
         return (
             <React.Fragment>
-                {this.state.peliculas.length === 0 ?
-                    (<h1> </h1>)
+                {cargando ?
+                    (<div className="loading-container">
+                    <h1>Cargando ...</h1>
+                    <img src="/img/loader.gif" alt="Cargando..." />
+                </div>)
                     :
                     (
                         <>
@@ -56,6 +62,8 @@ class Cartelera extends Component {
                                         title={elem.title}
                                         id={elem.id}
                                         extra={elem.overview}
+                                        mostrarDetalle= {true}
+                                        mostrarDescripcion={true}
                                     />
                                 ))}
                             </div>
