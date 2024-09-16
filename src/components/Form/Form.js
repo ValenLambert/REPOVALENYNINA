@@ -4,7 +4,7 @@ import "./Form.css"
 function Form() {
     return (
         <React.Fragment>
-                <form>
+                <form >
                     <input
                         type="text"
                         placeholder="Busca tu película..."

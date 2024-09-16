@@ -8,6 +8,7 @@ import Pelisencartel from "./components/Pelisencartel/Pelisencartel";
 import DetallePelicula from "./screens/DetallePelicula"
 import NotFound from './screens/NotFound'
 import PelisFav from "./components/PelisFav/PelisFav";
+import ResultadosBusqueda from "./screens/resultadosBusqueda";
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
         <Route path="/vertodaspopu" component={Pelispopu} />
         <Route path="/vertodascartelera" component={Pelisencartel} />
         <Route path='/detalle/:id' component= {DetallePelicula}/>
+        <Route path="/resultados/:busqueda" component={ResultadosBusqueda}/>
+
         <Route path="" component={NotFound}/>
       </Switch>
       <Footer />
