@@ -46,20 +46,10 @@ class Pelisencartel extends Component {
             .catch((e) => console.log(e));
     }
 
-    // Form para buscar pelis en cartelera
-    buscarPeliculas = () => {
-        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=${this.state.busqueda}&language=en-US&page=1&api_key=${apiKey}`)
-            .then((resp) => resp.json())
-            .then((data) => {
-                this.setState({
-                    peliculas: data.results ? data.results : []
-                })
-            })
-    }
+     
     // evitar el envio y que luego se ejecute el metodo de buscar las peliculas en cartelera 
     evitarSubmit = (event) => {
         event.preventDefault();
-        this.buscarPeliculas()
     }
 
     // hacer el controlar filtro
@@ -116,7 +106,7 @@ class Pelisencartel extends Component {
                         <Buscador
                             evitarSubmit={this.evitarSubmit}
                             controlarCambios={this.controlarCambios}
-                            buscarPeliculas={this.buscarPeliculas}
+                            // buscarPeliculas={this.buscarPeliculas}
                         />
 
                         {peliculas.length > 0 ? (

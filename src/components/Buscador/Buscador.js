@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './stylesheet.css'
 class Buscador extends Component {
+    
+
+    
+
     render() {
         return (
             <>

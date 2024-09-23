@@ -21,7 +21,7 @@ function App() {
         <Route path="/vertodaspopu" component={Pelispopu} />
         <Route path="/vertodascartelera" component={Pelisencartel} />
         <Route path='/detalle/:id' component={DetallePelicula} />
-        <Route path="/resultados/:busqueda" component={ResultadosBusqueda} />
+        <Route path="/resultados" component={ResultadosBusqueda} />
 
         <Route path="" component={NotFound} />
       </Switch>

@@ -42,16 +42,6 @@ class Pelispopu extends Component {
             })
             .catch((e) => console.log(e));
     }
-    // form de busqueda
-    buscarPeliculas = () => {
-        fetch(`https://api.themoviedb.org/3/search/movie/popular?query=${this.state.busqueda}&language=en-US&page=1&api_key=${apiKey}`)
-            .then((resp) => resp.json())
-            .then((data) => {
-                this.setState({
-                    peliculas: data.results ? data.results : []
-                })
-            })
-    }
 
     masPelis() {
         fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${this.state.valor}&api_key=${apiKey}`)
@@ -60,6 +50,7 @@ class Pelispopu extends Component {
                 this.setState({
                     peliculas: this.state.peliculas.concat(data.results),
                     peliculasBackup: this.state.peliculasBackup.concat(data.results),
+                    cargando: false,
                     valor: this.state.valor + 1
                 })
             })
@@ -69,7 +60,6 @@ class Pelispopu extends Component {
     // evitar el envio y que luego se ejecute el metodo de buscar las peliculas 
     evitarSubmit = (event) => {
         event.preventDefault();
-        this.buscarPeliculas()
     }
     // hacer el controlar filtro
     filtrarPeliculas = (nombrePelicula) => {
@@ -114,7 +104,6 @@ class Pelispopu extends Component {
                             <Buscador
                                 evitarSubmit={this.evitarSubmit}
                                 controlarCambios={this.controlarCambios}
-                                buscarPeliculas={this.buscarPeliculas}
                             />
 
 

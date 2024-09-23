@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Pelicula from "../components/Pelicula/Pelicula"; // Usamos el componente Pelicula
+import React, { Component } from 'react'
+import Pelicula from "../components/Pelicula/Pelicula";
 const apiKey = '42737f60c529bfe7e9586db8cb132a1c';
 
-class ResultadosBusqueda extends Component {
+class Resultados extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,27 +10,23 @@ class ResultadosBusqueda extends Component {
             cargando: true
         }
     }
-
     componentDidMount() {
-        const idBusqueda = this.props.match.params.busqueda
-        fetch(`https://api.themoviedb.org/3/search/movie?query=${idBusqueda}&api_key=${apiKey}`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    resultados: data.results,
-                    cargando: false,
-                })
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        // revuperamos la info de la prop
+        const buscando = this.props.history.location.state.busqueda
+        console.log("ACA BUSCANDO", buscando);
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${buscando}&language=en-US&api_key=${apiKey}`)
+        .then(resp => resp.json() )
+            .then(data => this.setState( 
+                {
+                resultados: data.results,
+                cargando: false,
+            }  )
+            )
+            console.log("ACA BSUCANDOOOOOOOO",this.state.resultados)
     }
-    // llamo a history, y accedo a la propiedad .location.state.busqueda 
-    // history llega por props, y hay que pasarsela 
-    // en el push le puedo pasar dos parametros 
-    // 
 
-    render() {
+    render() 
+    {
         const { resultados, cargando } = this.state
 
         if (cargando) {
@@ -41,13 +37,14 @@ class ResultadosBusqueda extends Component {
                 </div>
             );
 
-        } if (!resultados) {
+        } if (resultados.length === 0) {
             return <h1>No se encontró la película </h1>;
         }
 
         return (
             <>
                 <br></br>
+                <h1 className="Subtitulos"> Resultado de busqueda:  </h1>
                 <div className="Tarjeta">
                     {resultados.length > 0 ? (
                         resultados.map((elem) => (
@@ -68,7 +65,6 @@ class ResultadosBusqueda extends Component {
             </>
         )
     }
-
 }
 
-export default ResultadosBusqueda;
+export default Resultados 
