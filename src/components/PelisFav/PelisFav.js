@@ -19,11 +19,11 @@ class PelisFav extends Component {
 
         if (storage) {
             let pelisFavs = JSON.parse(storage);
-// le agrgeo el tiempo para que si no hay peliclas en afvrotitos, aparezca por un tiempito el cargando
+        // le agrgeo el tiempo para que si no hay peliclas en afvrotitos, aparezca por un tiempito el cargando
             if (pelisFavs.length === 0) {
                 setTimeout(() => {
                     this.setState({ cargando: false });
-                }, 800); 
+                }, 1000); 
             }
             else {
             pelisFavs.map(id =>
@@ -51,7 +51,8 @@ class PelisFav extends Component {
                     <img src="/img/loader.gif" alt="Cargando..." />
                 </div> );
 
-        } if (!pelisBien) {
+        } 
+        if (pelisBien.length === 0) {
             return <h1>No hay peliculas en favoritos </h1>;
         } 
 
@@ -59,8 +60,7 @@ class PelisFav extends Component {
             <>
                 <h1 className="Subtitulos">Tus favoritas:</h1>
                 <div className="Tarjeta">
-                    {pelisBien.length > 0 ? (
-                        pelisBien.map((elem) => (
+                        {pelisBien.map((elem) => (
                             <Pelicula
                                 key={elem.id}
                                 img={elem.poster_path}
@@ -71,9 +71,7 @@ class PelisFav extends Component {
                                 mostrarDescripcion={true}
                             />
                         ))
-                    ) : (
-                        <p>No tienes películas favoritas aún.</p>
-                    )}
+                         } 
                 </div>
             </>
         );
