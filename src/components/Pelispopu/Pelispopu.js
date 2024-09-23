@@ -11,7 +11,8 @@ class Pelispopu extends Component {
             peliculas: [],
             busqueda: '',
             cargando: true,
-            valor: 2
+            valor: 2,
+            peliculasBackup: []
         }
     }
 
@@ -35,7 +36,8 @@ class Pelispopu extends Component {
             .then((data) => {
                 this.setState({
                     peliculas: data.results,
-                    cargando: false
+                    cargando: false,
+                    peliculasBackup: data.results,
                 });
             })
             .catch((e) => console.log(e));
@@ -57,6 +59,7 @@ class Pelispopu extends Component {
             .then((data) => {
                 this.setState({
                     peliculas: this.state.peliculas.concat(data.results),
+                    peliculasBackup: this.state.peliculasBackup.concat(data.results),
                     valor: this.state.valor + 1
                 })
             })
@@ -69,18 +72,19 @@ class Pelispopu extends Component {
         this.buscarPeliculas()
     }
     // hacer el controlar filtro
-    filtrarPeliculas = () => {
-        const { peliculas, busqueda } = this.state;
-        return peliculas.filter(pelicula =>
-            pelicula.title.toLowerCase().includes(busqueda.toLowerCase())
-        );
+    filtrarPeliculas = (nombrePelicula) => {
+        const peliculasFiltradas = this.state.peliculasBackup.filter((pelicula)=> pelicula.title.toLowerCase().includes(nombrePelicula.toLowerCase())
+        )
+        this.setState({
+            peliculas:peliculasFiltradas
+        })
     }
 
     // metidi de controlar cambios 
     controlarCambios = (event) => {
         this.setState({
             busqueda: event.target.value
-        }, () => this.props.filtrarPeliculas(this.state.busqueda))
+        }, () => this.filtrarPeliculas(this.state.busqueda))
     }
 
     componentDidUpdate() {
@@ -94,8 +98,7 @@ class Pelispopu extends Component {
 
 
     render() {
-        const peliculasAMostrar = this.filtrarPeliculas();
-        const cargando = this.state.cargando
+        const { peliculas, cargando } = this.state; 
         return (
             <React.Fragment>
                 {cargando ? (
@@ -115,10 +118,10 @@ class Pelispopu extends Component {
                             />
 
 
-                            {peliculasAMostrar.length > 0 ? (
+                            {peliculas.length > 0 ? (
                                 <>
                                     <div className="Tarjeta">
-                                        {peliculasAMostrar.map((elem) => (
+                                        {peliculas.map((elem) => (
                                             <Pelicula
                                                 key={elem.id}
                                                 img={elem.poster_path}

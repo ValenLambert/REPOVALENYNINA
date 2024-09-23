@@ -12,7 +12,8 @@ class Pelisencartel extends Component {
             peliculas: [],
             busqueda: "",
             cargando: true,
-            valor: 2
+            valor: 2,
+            peliculasBackup: []
         }
     }
 
@@ -38,7 +39,8 @@ class Pelisencartel extends Component {
                 this.setState({
                     peliculas: data.results,
                     cargando: false,
-                    pagina: 1
+                    pagina: 1,
+                    peliculasBackup: data.results,
                 });
             })
             .catch((e) => console.log(e));
@@ -46,7 +48,7 @@ class Pelisencartel extends Component {
 
     // Form para buscar pelis en cartelera
     buscarPeliculas = () => {
-        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=1&language=en-US&page=1&api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=${this.state.busqueda}&language=en-US&page=1&api_key=${apiKey}`)
             .then((resp) => resp.json())
             .then((data) => {
                 this.setState({
@@ -59,12 +61,24 @@ class Pelisencartel extends Component {
         event.preventDefault();
         this.buscarPeliculas()
     }
+
+    // hacer el controlar filtro
+    filtrarPeliculas = (nombrePelicula) => {
+        const peliculasFiltradas = this.state.peliculasBackup.filter((pelicula) => pelicula.title.toLowerCase().includes(nombrePelicula.toLowerCase())
+        )
+        this.setState({
+            peliculas: peliculasFiltradas
+        })
+    }
+
+
     // metodo de "controlar cambios" 
     controlarCambios = (event) => {
         this.setState({
             busqueda: event.target.value
-        })
+        }, () => this.filtrarPeliculas(this.state.busqueda))
     }
+
     componentDidUpdate() {
         console.log("update")
     }
@@ -79,7 +93,8 @@ class Pelisencartel extends Component {
             .then((data) => {
                 this.setState({
                     peliculas: this.state.peliculas.concat(data.results),
-                    valor: this.state.valor + 1
+                    valor: this.state.valor + 1,
+                    peliculasBackup: this.state.peliculasBackup.concat(data.results),
                 })
                 console.log("MIRARARARRARARARA:", data)
             })
@@ -87,9 +102,8 @@ class Pelisencartel extends Component {
     }
 
     render() {
-        const peliculasAMostrar = this.state.peliculas
-            .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
-        const cargando = this.state.cargando
+        const {peliculas, cargando} = this.state
+
         return (
             <React.Fragment>
                 {cargando ? (<div className="loading-container">
@@ -105,11 +119,11 @@ class Pelisencartel extends Component {
                             buscarPeliculas={this.buscarPeliculas}
                         />
 
-                        {peliculasAMostrar.length > 0 ? (
+                        {peliculas.length > 0 ? (
                             <>
 
                                 <div className="Tarjeta">
-                                    {peliculasAMostrar.map((elem) => (
+                                    {peliculas.map((elem) => (
                                         <Pelicula
                                             key={elem.id}
                                             img={elem.poster_path}
