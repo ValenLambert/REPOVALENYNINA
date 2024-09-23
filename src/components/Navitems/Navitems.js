@@ -1,9 +1,9 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function Navitems(props) {
-    return ( 
+    return (
         <ul>
             <Link className="Barradenav" to={props.data.ruta}>
                 <h1>{props.data.Nombre}</h1>

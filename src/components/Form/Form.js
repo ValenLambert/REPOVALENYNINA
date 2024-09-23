@@ -8,7 +8,7 @@ class Form extends Component {
         this.state = {
             valor: "",
             peliculas: [],
-            
+
         };
     }
     componentDidMount() {
@@ -18,20 +18,20 @@ class Form extends Component {
             .then((data) => {
                 this.setState({
                     peliculas: data.results
-                    
-                    });
+
+                });
             })
             .catch((e) => console.log(e));
     }
 
 
     evitarSubmit(event) {
-        event.preventDefault(); 
+        event.preventDefault();
     }
 
     filtrarPeliculas(nombrePelicula) {
         const peliculasfiltradas = this.state.peliculas.filter(
-            (elem) => elem.title.toLowerCase().includes(nombrePelicula.toLowerCase()) 
+            (elem) => elem.title.toLowerCase().includes(nombrePelicula.toLowerCase())
         );
         console.log("buscando:", peliculasfiltradas);
     }
@@ -45,9 +45,9 @@ class Form extends Component {
         return (
             <React.Fragment>
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
-                    <input 
-                        onChange={(event) => this.controlarCambios(event)} 
-                        placeholder="Busca tu película..." 
+                    <input
+                        onChange={(event) => this.controlarCambios(event)}
+                        placeholder="Busca tu película..."
                     />
                 </form>
             </React.Fragment>

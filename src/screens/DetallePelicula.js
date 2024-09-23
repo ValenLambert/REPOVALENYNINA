@@ -44,11 +44,11 @@ class DetallePelicula extends Component {
         }
 
         return (
-            
+
             <>
-            <br></br> 
+                <br></br>
                 <div className="pelicula">
-                <h1 className="nombrePelicula"> {pelicula.title}</h1>
+                    <h1 className="nombrePelicula"> {pelicula.title}</h1>
                     <Pelicula
                         id={pelicula.id}
                         img={pelicula.poster_path}
@@ -60,7 +60,7 @@ class DetallePelicula extends Component {
                         duracion={pelicula.runtime}
                         calificacion={pelicula.vote_average}
                         mostrarDescripcion={false}
-                        esDetalle={true} 
+                        esDetalle={true}
                         agregada={true}
                     />
                     <br></br> <br></br>

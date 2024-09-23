@@ -6,9 +6,9 @@ import Cartelera from "../components/Cartelera/Cartelera";
 function Home() {
   return (
     <React.Fragment>
-      <Form/>
-      <Populares/>
-      <Cartelera/>
+      <Form />
+      <Populares />
+      <Cartelera />
     </React.Fragment>
   );
 }

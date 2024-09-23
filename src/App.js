@@ -1,5 +1,5 @@
 import React from "react";
-import {Route, Switch} from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Home from "./screens/Home";
@@ -17,13 +17,13 @@ function App() {
       <Nav />
       <Switch>
         <Route path="/" exact={true} component={Home} />
-        <Route path="/favoritos" component={PelisFav} /> 
+        <Route path="/favoritos" component={PelisFav} />
         <Route path="/vertodaspopu" component={Pelispopu} />
         <Route path="/vertodascartelera" component={Pelisencartel} />
-        <Route path='/detalle/:id' component= {DetallePelicula}/>
-        <Route path="/resultados/:busqueda" component={ResultadosBusqueda}/>
+        <Route path='/detalle/:id' component={DetallePelicula} />
+        <Route path="/resultados/:busqueda" component={ResultadosBusqueda} />
 
-        <Route path="" component={NotFound}/>
+        <Route path="" component={NotFound} />
       </Switch>
       <Footer />
     </div>

@@ -73,17 +73,17 @@ class Pelisencartel extends Component {
         console.log("unmount")
     }
 
-    masPelis(){
+    masPelis() {
         fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${this.state.valor}&api_key=${apiKey}`)
-        .then((resp) => resp.json())
-        .then((data) => {
-            this.setState({
-                peliculas: this.state.peliculas.concat(data.results),
-                valor: this.state.valor + 1
+            .then((resp) => resp.json())
+            .then((data) => {
+                this.setState({
+                    peliculas: this.state.peliculas.concat(data.results),
+                    valor: this.state.valor + 1
+                })
+                console.log("MIRARARARRARARARA:", data)
             })
-            console.log("MIRARARARRARARARA:",data)
-        })
-        .catch((error) => console.log(error))
+            .catch((error) => console.log(error))
     }
 
     render() {
@@ -93,21 +93,21 @@ class Pelisencartel extends Component {
         return (
             <React.Fragment>
                 {cargando ? (<div className="loading-container">
-                        <h1>Cargando ...</h1>
-                        <img src="/img/loader.gif" alt="Cargando..." />
-                    </div> )
-                :
-            ( <>
-                <h1 className="Subtitulos">Peliculas en cartelera:</h1>
-                                <Buscador
-                                    evitarSubmit={this.evitarSubmit}
-                                    controlarCambios={this.controlarCambios}
-                                    buscarPeliculas={this.buscarPeliculas}
-                                />
-                                 
+                    <h1>Cargando ...</h1>
+                    <img src="/img/loader.gif" alt="Cargando..." />
+                </div>)
+                    :
+                    (<>
+                        <h1 className="Subtitulos">Peliculas en cartelera:</h1>
+                        <Buscador
+                            evitarSubmit={this.evitarSubmit}
+                            controlarCambios={this.controlarCambios}
+                            buscarPeliculas={this.buscarPeliculas}
+                        />
+
                         {peliculasAMostrar.length > 0 ? (
                             <>
-                            
+
                                 <div className="Tarjeta">
                                     {peliculasAMostrar.map((elem) => (
                                         <Pelicula
@@ -116,24 +116,26 @@ class Pelisencartel extends Component {
                                             title={elem.title}
                                             id={elem.id}
                                             extra={elem.overview}
-                                            mostrarDetalle= {true}
-                                            mostrarDescripcion= {true}
+                                            mostrarDetalle={true}
+                                            mostrarDescripcion={true}
 
                                         />
                                     ))}
                                 </div>
-                            
-                                    <button className="Boton1" onClick={() => this.masPelis()}>
-                                        Ver más
-                                    </button>
-                                
-                             
+                                {
+                                    this.state.valor < 450 ?
+                                        <button className="Boton1" onClick={() => this.masPelis()}>
+                                            Ver más
+                                        </button>
+                                        : " "
+                                }
+
                             </>
                         ) : (
                             <h1>No se ha encontrado ninguna película en cartelera</h1>
                         )}
                     </>
-                )}
+                    )}
             </React.Fragment>
 
         )

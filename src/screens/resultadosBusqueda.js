@@ -11,10 +11,10 @@ class ResultadosBusqueda extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const idBusqueda = this.props.match.params.busqueda
         fetch(`https://api.themoviedb.org/3/search/movie?query=${idBusqueda}&api_key=${apiKey}`)
-        .then(response => response.json())
+            .then(response => response.json())
             .then(data => {
                 this.setState({
                     resultados: data.results,
@@ -25,30 +25,30 @@ class ResultadosBusqueda extends Component {
                 console.error('Error:', error);
             });
     }
-// llamo a history, y accedo a la propiedad .location.state.busqueda 
-// history llega por props, y hay que pasarsela 
-// en el push le puedo pasar dos parametros 
-// 
+    // llamo a history, y accedo a la propiedad .location.state.busqueda 
+    // history llega por props, y hay que pasarsela 
+    // en el push le puedo pasar dos parametros 
+    // 
 
-    render () {
-        const {resultados, cargando} = this.state
- 
-                if (cargando) {
-                        return (
-                            <div className="loading-container">
-                                <h1>Cargando...</h1>
-                                <img src="/img/loader.gif" alt="Cargando..." />
-                            </div>
-                        );
-                    
-                }  if (!resultados) {
-                    return <h1>No se encontró la película </h1>;
-                } 
-                
-               return (
-                <>
-            <br></br> 
-            <div className="Tarjeta">
+    render() {
+        const { resultados, cargando } = this.state
+
+        if (cargando) {
+            return (
+                <div className="loading-container">
+                    <h1>Cargando...</h1>
+                    <img src="/img/loader.gif" alt="Cargando..." />
+                </div>
+            );
+
+        } if (!resultados) {
+            return <h1>No se encontró la película </h1>;
+        }
+
+        return (
+            <>
+                <br></br>
+                <div className="Tarjeta">
                     {resultados.length > 0 ? (
                         resultados.map((elem) => (
                             <Pelicula
@@ -66,7 +66,7 @@ class ResultadosBusqueda extends Component {
                     )}
                 </div>
             </>
-               )
+        )
     }
 
 }

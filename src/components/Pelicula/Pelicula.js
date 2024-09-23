@@ -15,12 +15,12 @@ class Pelicula extends Component {
         }
         console.log("MIRAAA", props)
     }
-    componentDidMount(){
-        let storage= localStorage.getItem("peliculasFavs")
+    componentDidMount() {
+        let storage = localStorage.getItem("peliculasFavs")
         if (storage !== null) {
             let arrayParsiado = JSON.parse(storage)
             let esta = arrayParsiado.includes(this.state.id);
-            console.log ("MIRAAAAddd",arrayParsiado)
+            console.log("MIRAAAAddd", arrayParsiado)
             if (esta) {
                 this.setState({
                     agregada: false
@@ -41,11 +41,11 @@ class Pelicula extends Component {
         }
     }
 
-    favoritos (id){
-        let storage =localStorage.getItem("peliculasFavs")
-        if(storage !== null){
-            let sotargeParseado =JSON.parse (storage)
-            sotargeParseado.push (id)
+    favoritos(id) {
+        let storage = localStorage.getItem("peliculasFavs")
+        if (storage !== null) {
+            let sotargeParseado = JSON.parse(storage)
+            sotargeParseado.push(id)
             let storageStringifiado = JSON.stringify(sotargeParseado)
             localStorage.setItem("peliculasFavs", storageStringifiado)
         } else {
@@ -59,7 +59,7 @@ class Pelicula extends Component {
         })
     }
 
-    sacardeFavs (id){
+    sacardeFavs(id) {
         let storage = localStorage.getItem("peliculasFavs");
         if (storage !== null) {
             let storageParseado = JSON.parse(storage);
@@ -76,7 +76,7 @@ class Pelicula extends Component {
     render() {
         // agrego propiedades para el detalle de la pelicula 
         const { mostrarDetalle, fecha, duracion, calificacion, genres, mostrarGeneros, sinopsis, mostrarDescripcion, esDetalle } = this.props
-        
+
         return (
             <article className={esDetalle ? "pelicula" : "character-card"} >
                 <img src={`https://image.tmdb.org/t/p/original${this.state.img}`} alt={this.state.title} className={esDetalle ? "imagenDetalle" : "character-card img"} />
@@ -94,7 +94,7 @@ class Pelicula extends Component {
 
                 <div className={`${this.state.info ? 'hidden' : 'show'}`}>
                     <p>{this.state.extra}</p>
-                </div> 
+                </div>
                 {mostrarGeneros && (
                     <div className="genres">
                         <p className="detalles">Géneros:</p>
@@ -115,22 +115,22 @@ class Pelicula extends Component {
                 {duracion && <p className="detalles">Duración: {duracion} minutos</p>}
                 {calificacion && <p className="detalles">Calificación: {calificacion}</p>}
                 {sinopsis && <p className="detalles"> Sinopsis: {sinopsis} </p>}
-                
-                    {this.state.agregada ? 
+
+                {this.state.agregada ?
                     <p className="delete" onClick={() => this.favoritos(this.state.id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-6.91-.58L12 2 8.91 8.66 2 9.24l5.46 4.73L5.82 21z" />
                         </svg>
                     </p>
-                        :
+                    :
                     <p className="delete" onClick={() => this.sacardeFavs(this.state.id)}>
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-6.91-.58L12 2 8.91 8.66 2 9.24l5.46 4.73L5.82 21z" />
                         </svg>
                     </p>
-                    }
-                    
+                }
+
             </article>)
     }
 }

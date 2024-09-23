@@ -46,9 +46,9 @@ class Cartelera extends Component {
             <React.Fragment>
                 {cargando ?
                     (<div className="loading-container">
-                    <h1>Cargando ...</h1>
-                    <img src="/img/loader.gif" alt="Cargando..." />
-                </div>)
+                        <h1>Cargando ...</h1>
+                        <img src="/img/loader.gif" alt="Cargando..." />
+                    </div>)
                     :
                     (
                         <>
@@ -62,7 +62,7 @@ class Cartelera extends Component {
                                         title={elem.title}
                                         id={elem.id}
                                         extra={elem.overview}
-                                        mostrarDetalle= {true}
+                                        mostrarDetalle={true}
                                         mostrarDescripcion={true}
                                     />
                                 ))}

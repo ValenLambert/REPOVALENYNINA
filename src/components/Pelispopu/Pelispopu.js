@@ -71,7 +71,7 @@ class Pelispopu extends Component {
     // hacer el controlar filtro
     filtrarPeliculas = () => {
         const { peliculas, busqueda } = this.state;
-        return peliculas.filter(pelicula => 
+        return peliculas.filter(pelicula =>
             pelicula.title.toLowerCase().includes(busqueda.toLowerCase())
         );
     }
@@ -80,7 +80,7 @@ class Pelispopu extends Component {
     controlarCambios = (event) => {
         this.setState({
             busqueda: event.target.value
-        }, () => this.props.filtrarPeliculas(this.state.busqueda) )
+        }, () => this.props.filtrarPeliculas(this.state.busqueda))
     }
 
     componentDidUpdate() {
@@ -131,11 +131,15 @@ class Pelispopu extends Component {
                                             />
                                         ))}
                                     </div>
-                                    <button className="Boton1" onClick={() => this.masPelis()}>
-                                        Ver más
-                                    </button>
+                                    {
+                                        this.state.valor < 450 ?
+                                            <button className="Boton1" onClick={() => this.masPelis()}>
+                                                Ver más
+                                            </button>
+                                            : " "
+                                    }
 
-                                                             </>
+                                </>
                             ) : (
                                 <h1>No se ha encontrado ninguna película popular</h1>
                             )}
