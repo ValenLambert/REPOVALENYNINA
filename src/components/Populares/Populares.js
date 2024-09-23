@@ -11,7 +11,7 @@ class Populares extends Component {
         this.state = {
             peliculas: [],
             mostrar: 5,
-            cargando: true
+            cargando: true,
         }
     }
 
@@ -22,7 +22,8 @@ class Populares extends Component {
             .then((data) => {
                 this.setState({
                     peliculas: data.results,
-                    cargando: false
+                    cargando: false,
+
                 });
             })
             .catch((e) => console.log(e));

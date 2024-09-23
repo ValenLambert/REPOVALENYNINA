@@ -7,7 +7,8 @@ class Form extends Component {
         super(props);
         this.state = {
             valor: "",
-            peliculas: [] 
+            peliculas: [],
+            
         };
     }
     componentDidMount() {
@@ -17,6 +18,7 @@ class Form extends Component {
             .then((data) => {
                 this.setState({
                     peliculas: data.results
+                    
                     });
             })
             .catch((e) => console.log(e));

@@ -6,7 +6,8 @@ class ResultadosBusqueda extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            resultados: []
+            resultados: [],
+            cargando: true
         }
     }
 
@@ -17,6 +18,7 @@ class ResultadosBusqueda extends Component {
             .then(data => {
                 this.setState({
                     resultados: data.results,
+                    cargando: false,
                 })
             })
             .catch(error => {
@@ -29,10 +31,22 @@ class ResultadosBusqueda extends Component {
 // 
 
     render () {
-        const {resultados} = this.state
-        return (
-            <div> 
-           <>
+        const {resultados, cargando} = this.state
+ 
+                if (cargando) {
+                        return (
+                            <div className="loading-container">
+                                <h1>Cargando...</h1>
+                                <img src="/img/loader.gif" alt="Cargando..." />
+                            </div>
+                        );
+                    
+                }  if (!resultados) {
+                    return <h1>No se encontró la película </h1>;
+                } 
+                
+               return (
+                <>
             <br></br> 
             <div className="Tarjeta">
                     {resultados.length > 0 ? (
@@ -52,8 +66,7 @@ class ResultadosBusqueda extends Component {
                     )}
                 </div>
             </>
-             </div>
-        )
+               )
     }
 
 }
