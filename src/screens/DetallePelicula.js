@@ -30,44 +30,40 @@ class DetallePelicula extends Component {
     render() {
         const { pelicula, cargando } = this.state;
 
-        if (cargando) {
-            return (
+        return (
+            cargando ? (
                 <div className="loading-container">
                     <h1>Cargando...</h1>
                     <img src="/img/loader.gif" alt="Cargando..." />
                 </div>
-            );
-        }
-
-        if (!pelicula) {
-            return <h1>No se encontró la película</h1>;
-        }
-
-        return (
-
-            <>
-                <br></br>
-                <div className="pelicula">
-                    <h1 className="nombrePelicula"> {pelicula.title}</h1>
-                    <Pelicula
-                        id={pelicula.id}
-                        img={pelicula.poster_path}
-                        sinopsis={pelicula.overview}
-                        mostrarDetalle={false}
-                        mostrarGeneros={true}
-                        genres={pelicula.genres}
-                        fecha={pelicula.release_date}
-                        duracion={pelicula.runtime}
-                        calificacion={pelicula.vote_average}
-                        mostrarDescripcion={false}
-                        esDetalle={true}
-                        agregada={true}
-                    />
-                    <br></br> <br></br>
-                </div>
-            </>
+            ) : !pelicula ? (  
+                <h1>No se encontró la película</h1>
+            ) : (
+                <>
+                    <br />
+                    <div className="pelicula">
+                        <h1 className="nombrePelicula">{pelicula.title}</h1>
+                        <Pelicula
+                            id={pelicula.id}
+                            img={pelicula.poster_path}
+                            sinopsis={pelicula.overview}
+                            mostrarDetalle={false}
+                            mostrarGeneros={true}
+                            genres={pelicula.genres}
+                            fecha={pelicula.release_date}
+                            duracion={pelicula.runtime}
+                            calificacion={pelicula.vote_average}
+                            mostrarDescripcion={false}
+                            esDetalle={true}
+                            agregada={true}
+                        />
+                        <br /><br />
+                    </div>
+                </>
+            )
         );
     }
 }
+
 
 export default DetallePelicula;

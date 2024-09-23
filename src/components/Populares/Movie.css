@@ -51,3 +51,34 @@ box-shadow: 0rem 0rem 10px 8px rgb(58 59 69 / 25%);
     font-size: 16px;         
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+/* para el responsive */
+@media screen and (max-width: 1200px) {
+    .character-card {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .character-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .character-card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .character-card img {
+        height: auto;
+    }
+
+    .character-card h2 {
+        font-size: 16px;
+    }
+
+    .character-card p {
+        font-size: 16px;
+    }
+}

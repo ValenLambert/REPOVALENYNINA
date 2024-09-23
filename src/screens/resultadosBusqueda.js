@@ -28,20 +28,16 @@ class Resultados extends Component {
     render() 
     {
         const { resultados, cargando } = this.state
-
-        if (cargando) {
-            return (
+        return(
+       cargando ? (
                 <div className="loading-container">
                     <h1>Cargando...</h1>
                     <img src="/img/loader.gif" alt="Cargando..." />
-                </div>
-            );
-
-        } if (resultados.length === 0) {
-            return <h1>No se encontró la película </h1>;
-        }
-
-        return (
+                </div> )
+    : 
+     resultados.length === 0 ?
+     (<h1>No se encontró la película </h1>)
+        :  (
             <>
                 <br></br>
                 <h1 className="Subtitulos"> Resultado de busqueda:  </h1>
@@ -63,7 +59,7 @@ class Resultados extends Component {
                     )}
                 </div>
             </>
-        )
+        ))
     }
 }
 
