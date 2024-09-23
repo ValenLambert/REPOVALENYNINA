@@ -68,11 +68,19 @@ class Pelispopu extends Component {
         event.preventDefault();
         this.buscarPeliculas()
     }
+    // hacer el controlar filtro
+    filtrarPeliculas = () => {
+        const { peliculas, busqueda } = this.state;
+        return peliculas.filter(pelicula => 
+            pelicula.title.toLowerCase().includes(busqueda.toLowerCase())
+        );
+    }
+
     // metidi de controlar cambios 
     controlarCambios = (event) => {
         this.setState({
             busqueda: event.target.value
-        })
+        }, () => this.props.filtrarPeliculas(this.state.busqueda) )
     }
 
     componentDidUpdate() {
@@ -86,8 +94,7 @@ class Pelispopu extends Component {
 
 
     render() {
-        const peliculasAMostrar = this.state.peliculas
-            .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
+        const peliculasAMostrar = this.filtrarPeliculas();
         const cargando = this.state.cargando
         return (
             <React.Fragment>
