@@ -10,7 +10,7 @@ class Pelisencartel extends Component {
         super(props);
         this.state = {
             peliculas: [],
-            mostrar: 10,
+            mostrar: 20,
             busqueda: "",
             cargando: true,
         }
@@ -18,13 +18,13 @@ class Pelisencartel extends Component {
 
     verMas() {
         this.setState((prevState) => ({
-            mostrar: prevState.mostrar + 5
+            pagina: +1
         }));
     }
 
     verMenos() {
         this.setState((prevState) => ({
-            mostrar: prevState.mostrar - 5
+            pagina: -1
         }));
     }
 
@@ -38,6 +38,7 @@ class Pelisencartel extends Component {
                 this.setState({
                     peliculas: data.results,
                     cargando: false,
+                    pagina: 1
                 });
             })
             .catch((e) => console.log(e));
@@ -45,7 +46,7 @@ class Pelisencartel extends Component {
 
     // Form para buscar pelis en cartelera
     buscarPeliculas = () => {
-        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=${this.state.busqueda}&language=en-US&page=1&api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=${this.state.busqueda}&language=en-US&page=${this.state.pagina}&api_key=${apiKey}`)
             .then((resp) => resp.json())
             .then((data) => {
                 this.setState({
@@ -109,13 +110,11 @@ class Pelisencartel extends Component {
                                         />
                                     ))}
                                 </div>
-                                {this.state.mostrar < 20 ? (
+                            
                                     <button className="Boton1" onClick={() => this.verMas()}>
                                         Ver más
                                     </button>
-                                ) : (
-                                    ""
-                                )}
+                                
                                 {this.state.mostrar >= 10 ? (
                                     <button className="Boton2" onClick={() => this.verMenos()}>
                                         Ver menos
