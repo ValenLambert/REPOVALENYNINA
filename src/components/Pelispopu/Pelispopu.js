@@ -9,9 +9,9 @@ class Pelispopu extends Component {
         super(props);
         this.state = {
             peliculas: [],
-            mostrar: 10,
             busqueda: '',
-            cargando: true
+            cargando: true,
+            valor: 2
         }
     }
 
@@ -26,8 +26,6 @@ class Pelispopu extends Component {
             mostrar: prevState.mostrar - 5
         }));
     }
-
-
 
 
     componentDidMount() {
@@ -53,18 +51,30 @@ class Pelispopu extends Component {
             })
     }
 
+    masPelis() {
+        fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${this.state.valor}&api_key=${apiKey}`)
+            .then((resp) => resp.json())
+            .then((data) => {
+                this.setState({
+                    peliculas: this.state.peliculas.concat(data.results),
+                    valor: this.state.valor + 1
+                })
+            })
+            .catch((error) => console.log(error))
+    }
+
     // evitar el envio y que luego se ejecute el metodo de buscar las peliculas 
     evitarSubmit = (event) => {
         event.preventDefault();
         this.buscarPeliculas()
     }
-// metidi de controlar cambios 
+    // metidi de controlar cambios 
     controlarCambios = (event) => {
         this.setState({
             busqueda: event.target.value
         })
     }
-    
+
     componentDidUpdate() {
         console.log("update")
     }
@@ -78,27 +88,26 @@ class Pelispopu extends Component {
     render() {
         const peliculasAMostrar = this.state.peliculas
             .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
-            .slice(0, this.state.mostrar);
         const cargando = this.state.cargando
-            return (
-                <React.Fragment>
-                    {cargando ? (
-                        <div className="loading-container">
+        return (
+            <React.Fragment>
+                {cargando ? (
+                    <div className="loading-container">
                         <h1>Cargando ...</h1>
                         <img src="/img/loader.gif" alt="Cargando..." />
                     </div>
-                    )
+                )
                     :
                     (
-                    <> 
-                    <h1 className="Subtitulos">Peliculas populares:</h1>
-                                    <Buscador
-                                        evitarSubmit={this.evitarSubmit}
-                                        controlarCambios={this.controlarCambios}
-                                        buscarPeliculas={this.buscarPeliculas}
-                                    /> 
-                    
-                        
+                        <>
+                            <h1 className="Subtitulos">Peliculas populares:</h1>
+                            <Buscador
+                                evitarSubmit={this.evitarSubmit}
+                                controlarCambios={this.controlarCambios}
+                                buscarPeliculas={this.buscarPeliculas}
+                            />
+
+
                             {peliculasAMostrar.length > 0 ? (
                                 <>
                                     <div className="Tarjeta">
@@ -109,30 +118,24 @@ class Pelispopu extends Component {
                                                 title={elem.title}
                                                 id={elem.id}
                                                 extra={elem.overview}
-                                                mostrarDetalle= {true}
-                                                mostrarDescripcion= {true}
+                                                mostrarDetalle={true}
+                                                mostrarDescripcion={true}
 
                                             />
                                         ))}
                                     </div>
-                                    {this.state.mostrar < 20 && (
-                                        <button className="Boton1" onClick={() => this.verMas()}>
-                                            Ver más
-                                        </button>
-                                    )}
-                                    {this.state.mostrar >= 10 && (
-                                        <button className="Boton2" onClick={() => this.verMenos()}>
-                                            Ver menos
-                                        </button>
-                                    )}
-                                </>
+                                    <button className="Boton1" onClick={() => this.masPelis()}>
+                                        Ver más
+                                    </button>
+
+                                                             </>
                             ) : (
                                 <h1>No se ha encontrado ninguna película popular</h1>
                             )}
                         </>
-                    )} 
-                </React.Fragment>
-            );
+                    )}
+            </React.Fragment>
+        );
     }
 }
 

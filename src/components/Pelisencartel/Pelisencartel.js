@@ -10,9 +10,9 @@ class Pelisencartel extends Component {
         super(props);
         this.state = {
             peliculas: [],
-            mostrar: 20,
             busqueda: "",
             cargando: true,
+            valor: 2
         }
     }
 
@@ -46,7 +46,7 @@ class Pelisencartel extends Component {
 
     // Form para buscar pelis en cartelera
     buscarPeliculas = () => {
-        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=${this.state.busqueda}&language=en-US&page=${this.state.pagina}&api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/search/movie/now_playing?query=1&language=en-US&page=1&api_key=${apiKey}`)
             .then((resp) => resp.json())
             .then((data) => {
                 this.setState({
@@ -73,10 +73,22 @@ class Pelisencartel extends Component {
         console.log("unmount")
     }
 
+    masPelis(){
+        fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${this.state.valor}&api_key=${apiKey}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+            this.setState({
+                peliculas: this.state.peliculas.concat(data.results),
+                valor: this.state.valor + 1
+            })
+            console.log("MIRARARARRARARARA:",data)
+        })
+        .catch((error) => console.log(error))
+    }
+
     render() {
         const peliculasAMostrar = this.state.peliculas
             .filter(pelicula => pelicula.title.toLowerCase().includes(this.state.busqueda.toLocaleLowerCase()))
-            .slice(0, this.state.mostrar);
         const cargando = this.state.cargando
         return (
             <React.Fragment>
@@ -111,17 +123,11 @@ class Pelisencartel extends Component {
                                     ))}
                                 </div>
                             
-                                    <button className="Boton1" onClick={() => this.verMas()}>
+                                    <button className="Boton1" onClick={() => this.masPelis()}>
                                         Ver más
                                     </button>
                                 
-                                {this.state.mostrar >= 10 ? (
-                                    <button className="Boton2" onClick={() => this.verMenos()}>
-                                        Ver menos
-                                    </button>
-                                ) : (
-                                    ""
-                                )}
+                             
                             </>
                         ) : (
                             <h1>No se ha encontrado ninguna película en cartelera</h1>
