@@ -52,13 +52,16 @@ class PelisFav extends Component {
         if (cargando) {
             return (
                 <div className="loading-container">
-                    <h1>Cargando...</h1>
-                    <img src="/img/loader.gif" alt="Cargando..." />
-                </div>);
+                        <div className="loader">
+                            <h1 className="Subtitulos loading">Cargando...</h1>
+                            <br></br>
+                            <img src="/img/loader.gif" alt="Cargando..." />
+                        </div>
+                    </div>);
 
         }
         if (pelisBien.length === 0) {
-            return <h1>No hay peliculas en favoritos </h1>;
+            return <h1 className='Subtitulitos'>No hay peliculas en favoritos </h1>;
         }
 
         return (

@@ -30,6 +30,12 @@ body {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+.Subtitulitos{
+    font-size: 22px;
+    text-decoration: underline;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic
+}
 .Boton1 {
         background-color: #535C91; 
         color: white;              
@@ -127,6 +133,26 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw;  
+}
+.loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.loading{
+    display: flex;
+    justify-content:flex-start;
+    align-items: flex-start;
+    text-align: flex-start;
+    font-size: 26px;
+    font-style: italic ;}
 
 
 /* Responsive Styles */

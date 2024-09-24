@@ -34,11 +34,13 @@ class Pelispopu extends Component {
         fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1&api_key=${apiKey}`)
             .then((resp) => resp.json())
             .then((data) => {
-                this.setState({
-                    peliculas: data.results,
-                    cargando: false,
-                    peliculasBackup: data.results,
-                });
+                setTimeout(() => {
+                    this.setState({
+                        peliculas: data.results,
+                        cargando: false,
+                        peliculasBackup: data.results,
+                    });
+                }, 1000);
             })
             .catch((e) => console.log(e));
     }
@@ -63,10 +65,10 @@ class Pelispopu extends Component {
     }
     // hacer el controlar filtro
     filtrarPeliculas = (nombrePelicula) => {
-        const peliculasFiltradas = this.state.peliculasBackup.filter((pelicula)=> pelicula.title.toLowerCase().includes(nombrePelicula.toLowerCase())
+        const peliculasFiltradas = this.state.peliculasBackup.filter((pelicula) => pelicula.title.toLowerCase().includes(nombrePelicula.toLowerCase())
         )
         this.setState({
-            peliculas:peliculasFiltradas
+            peliculas: peliculasFiltradas
         })
     }
 
@@ -88,13 +90,16 @@ class Pelispopu extends Component {
 
 
     render() {
-        const { peliculas, cargando } = this.state; 
+        const { peliculas, cargando } = this.state;
         return (
             <React.Fragment>
                 {cargando ? (
                     <div className="loading-container">
-                        <h1>Cargando ...</h1>
-                        <img src="/img/loader.gif" alt="Cargando..." />
+                        <div className="loader">
+                            <h1 className="Subtitulos loading">Cargando...</h1>
+                            <br></br>
+                            <img src="/img/loader.gif" alt="Cargando..." />
+                        </div>
                     </div>
                 )
                     :
@@ -133,7 +138,7 @@ class Pelispopu extends Component {
 
                                 </>
                             ) : (
-                                <h1>No se ha encontrado ninguna película popular</h1>
+                                <h1 className='Subtitulitos'>No se ha encontrado ninguna película popular</h1>
                             )}
                         </>
                     )}

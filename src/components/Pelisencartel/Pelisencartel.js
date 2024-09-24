@@ -36,17 +36,20 @@ class Pelisencartel extends Component {
             .then((resp) => resp.json())
             .then((data) => {
                 console.log("acaaaaa:", data)
-                this.setState({
-                    peliculas: data.results,
-                    cargando: false,
-                    pagina: 1,
-                    peliculasBackup: data.results,
-                });
+                setTimeout(() => {
+                    this.setState({
+                        peliculas: data.results,
+                        cargando: false,
+                        pagina: 1,
+                        peliculasBackup: data.results,
+                    });
+                }, 800)
+
             })
             .catch((e) => console.log(e));
     }
 
-     
+
     // evitar el envio y que luego se ejecute el metodo de buscar las peliculas en cartelera 
     evitarSubmit = (event) => {
         event.preventDefault();
@@ -92,21 +95,25 @@ class Pelisencartel extends Component {
     }
 
     render() {
-        const {peliculas, cargando} = this.state
+        const { peliculas, cargando } = this.state
 
         return (
             <React.Fragment>
-                {cargando ? (<div className="loading-container">
-                    <h1>Cargando ...</h1>
-                    <img src="/img/loader.gif" alt="Cargando..." />
-                </div>)
+                {cargando ? (
+                    <div className="loading-container">
+                        <div className="loader">
+                            <h1 className="Subtitulos loading">Cargando...</h1>
+                            <br></br>
+                            <img src="/img/loader.gif" alt="Cargando..." />
+                        </div>
+                    </div>)
                     :
                     (<>
-                        <h1 className="Subtitulos">Peliculas en cartelera:</h1>
+                        <h1 className="Subtitulos">Películas en cartelera:</h1>
                         <Buscador
                             evitarSubmit={this.evitarSubmit}
                             controlarCambios={this.controlarCambios}
-                            // buscarPeliculas={this.buscarPeliculas}
+                        // buscarPeliculas={this.buscarPeliculas}
                         />
 
                         {peliculas.length > 0 ? (
@@ -136,7 +143,7 @@ class Pelisencartel extends Component {
 
                             </>
                         ) : (
-                            <h1>No se ha encontrado ninguna película en cartelera</h1>
+                            <h1 className="Subtitulitos">No se ha encontrado ninguna película en cartelera</h1>
                         )}
                     </>
                     )}

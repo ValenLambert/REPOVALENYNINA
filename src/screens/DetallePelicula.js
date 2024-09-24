@@ -16,10 +16,13 @@ class DetallePelicula extends Component {
         fetch(`https://api.themoviedb.org/3/movie/${idCapturado}?language=en-US&api_key=${apiKey}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({
-                    pelicula: data,
-                    cargando: false,
-                });
+                setTimeout(() => {
+                    this.setState({
+                        pelicula: data,
+                        cargando: false,
+                    });
+                }, 800)
+
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -33,11 +36,14 @@ class DetallePelicula extends Component {
         return (
             cargando ? (
                 <div className="loading-container">
-                    <h1>Cargando...</h1>
-                    <img src="/img/loader.gif" alt="Cargando..." />
+                    <div className="loader">
+                        <h1 className="Subtitulos loading">Cargando...</h1>
+                        <br></br>
+                        <img src="/img/loader.gif" alt="Cargando..." />
+                    </div>
                 </div>
-            ) : !pelicula ? (  
-                <h1>No se encontró la película</h1>
+            ) : !pelicula ? (
+                <h1 className='Subtitulitos'>No se encontró la película</h1>
             ) : (
                 <>
                     <br />

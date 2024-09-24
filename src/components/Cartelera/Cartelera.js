@@ -22,10 +22,13 @@ class Cartelera extends Component {
             .then((resp) => resp.json())
             .then((data) => {
                 console.log("acaaaaa:", data)
-                this.setState({
-                    peliculas: data.results,
-                    cargando: false
-                });
+                setTimeout(() => {
+                    this.setState({
+                        peliculas: data.results,
+                        cargando: false
+                    });
+                }, 800)
+
             })
             .catch((e) => console.log(e));
     }
@@ -46,14 +49,17 @@ class Cartelera extends Component {
             <React.Fragment>
                 {cargando ?
                     (<div className="loading-container">
-                        <h1>Cargando ...</h1>
-                        <img src="/img/loader.gif" alt="Cargando..." />
+                        <div className="loader">
+                            <h1 className="Subtitulos loading"> </h1>
+                            <br></br>
+                            {/* <img src="/img/loader.gif" alt="Cargando..." /> SE LA SACO XQ YA APARECE EL LOADER  POR EL ARCHIVO DE PELISPOPU*/}
+                        </div>
                     </div>)
                     :
                     (
                         <>
 
-                            <h1 className="Subtitulos">Peliculas en cartelera:</h1>
+                            <h1 className="Subtitulos">Películas en cartelera:</h1>
 
                             <div className="Tarjeta">
                                 {peliculasAMostrar.map((elem) => (
