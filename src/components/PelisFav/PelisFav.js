@@ -60,7 +60,7 @@ class PelisFav extends Component {
         return (
             <>
                 <h1 className="Subtitulos">Tus favoritas:</h1>
-                <div className="Tarjeta">
+                <div className="Tarjeta contenedor-favoritos">
                     {pelisBien.map((elem) => (
                         <Pelicula
                             key={elem.id}

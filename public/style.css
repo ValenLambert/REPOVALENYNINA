@@ -7,13 +7,14 @@ body {
     background-color: #070F2B;
     padding-bottom: 150px;
     display: flex;
+    flex-direction: column;
 }
 
 .Tarjeta {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content:space-between;
     color: #666;
     margin: 37px;
 }
@@ -77,8 +78,8 @@ body {
 
 .pelicula{
     padding: 20px;
-    margin: 0 auto;
-    max-width: 800px;
+    /* margin: 0 auto; */
+    max-width: 1000px;
     background-color: #535C91;
     border-radius: 10px;
     margin: 0 10px; 
@@ -121,6 +122,12 @@ body {
     text-decoration: dotted;
 
 }
+.contenedor-favoritos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 
 /* Responsive Styles */
 @media screen and (max-width: 1200px) {
