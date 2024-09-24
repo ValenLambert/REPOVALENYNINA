@@ -26,18 +26,22 @@ class PelisFav extends Component {
                 }, 1000);
             }
             else {
-                pelisFavs.map(id =>
+                let fetchPromises = pelisFavs.map(id =>
                     fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=${apiKey}`)
-                        .then((resp) => resp.json())
-                        .then((data) => {
-                            console.log("acaaaaa:", data)
-                            this.setState({
-                                pelisBien: this.state.pelisBien.concat(data),
-                                cargando: false,
-                            });
-                            console.log("ESTAS SON ÑAS FAVS", this.state.pelisBien)
-                        })
-                        .catch((e) => console.log(e)))
+                    .then(resp => resp.json())
+                );
+                
+                Promise.all(fetchPromises)
+                    .then((data) => {
+                        console.log("acaaaaa:", data);
+                        this.setState({
+                            pelisBien: this.state.pelisBien.concat(data),
+                            cargando: false,
+                        });
+                        console.log("ESTAS SON LAS FAVS", this.state.pelisBien);
+                    })
+                    .catch((e) => console.log(e));
+                
             }
         }
     }
